@@ -3,19 +3,44 @@ using System;
 using System.IO;
 internal class Program
 {
-    private static void Main(string[] args)
+    public static void Main(string[] args)
     {
-        string Test = "C:/Test.txt";
-        ManipulationFichier TestFichier = new ManipulationFichier();
+        // string Test = "C:/Test.txt";
+        // ManipulationFichier TestFichier = new ManipulationFichier();
 
-        try
+        // try
+        // {
+        //     TestFichier.LectureFichier(Test);
+        // }
+        // catch (FichierNonTrouverException ex)
+        // {
+        //     Console.WriteLine(ex.Message);
+        // }
+
+        Matrices TestMatrice = new Matrices(3,3);
+
+        for (int i = 0; i < TestMatrice.NombreDeLignes; i++)
         {
-            TestFichier.LectureFichier(Test);
+            for (int y = 0; y < TestMatrice.NombreDeColonnes; y++)
+            {
+                TestMatrice.m_donnees[i,y] = new Random().NextInt64(1,10);
+            }
         }
-        catch (FichierNonTrouverException ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
+        System.Console.WriteLine(TestMatrice.ToString());
+        System.Console.WriteLine("\n");
+
+        double[,] array2d = {{1,1,1},{2,2,2},{1,1,1}};
+        double[,] array2d2 = {{2,2,2},{1,1,1},{2,2,2}};
+
+        Matrices TestMatrice2 = new Matrices(array2d);
+        Matrices TestMatrice3 = new Matrices(array2d2);
+
+        System.Console.WriteLine(TestMatrice2.ToString());
+        System.Console.WriteLine(TestMatrice3.ToString());
+
+        Matrices TestMatrice4 = TestMatrice2 * TestMatrice3;
+
+        System.Console.WriteLine(TestMatrice4);
        
     }
 
