@@ -98,13 +98,15 @@ namespace ClassLib
         public static Matrices operator *(Matrices a, Matrices b)
         {
             Matrices resultat = new Matrices(a.NombreDeLignes, a.NombreDeColonnes);
-            int x = 0;
-            int y = 0;
+
             for (int i = 0; i < a.NombreDeLignes; i++)
             {
-                for (int j = 0; j < a.NombreDeColonnes; j++)
+                for (int j = 0; j < b.NombreDeColonnes; j++)
                 {
-                    resultat.m_donnees[x,y] += a.m_donnees[i,j] * b.m_donnees[j,i];
+                    for (int k = 0; k < b.NombreDeLignes; k++)
+                    {
+                        resultat.m_donnees[i,j] += a.m_donnees[i,k] * b.m_donnees[k,i];
+                    }
                     
                 }
             }
