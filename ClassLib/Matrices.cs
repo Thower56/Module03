@@ -19,6 +19,15 @@ namespace ClassLib
 
         public Matrices(double[,] p_tableau)
         {
+            if(p_tableau is null)
+            {
+                throw new MatricesCtorParameterNullException("Le parametre ne peut pas etre null");
+            }
+            if(p_tableau.GetLength(0) <= 0 || p_tableau.GetLength(1) <= 0)
+            {
+                throw new MatricesCtorParameterArgumentException("Le tableau doit etre de 2D pas de 0 et <");
+            }
+
             m_donnees = new double[p_tableau.GetLength(0),p_tableau.GetLength(1)];
             for (int i = 0; i < p_tableau.GetLength(0); i++)
             {
@@ -31,6 +40,11 @@ namespace ClassLib
 
         public static Matrices Identite(int p_ligne, int p_colonnes)
         {
+            if(p_ligne <= 0 || p_colonnes <= 0)
+            {
+                throw new MatriceIdentiteArgumentException("Les parametres doit etre > 0");
+            }
+
             Matrices m_identite = new Matrices(p_ligne, p_colonnes);
 
             for(int i = 0; i < p_ligne; i++)
@@ -52,13 +66,18 @@ namespace ClassLib
 
         public static Matrices Transpose(Matrices p_matrix)
         {
+            if(p_matrix is null)
+            {
+                throw new MatriceTransposeNullArgumentsException("Vous ne pouvez pas transposez une Matrice Null");
+            }
+
             Matrices m_transpose = new Matrices(p_matrix.NombreDeColonnes, p_matrix.NombreDeLignes);
 
-            for (int i = 0; i < p_matrix.NombreDeLignes; i++)
+            for (int i = 0; i < p_matrix.NombreDeColonnes; i++)
             {
-                for (int j = 0; j < p_matrix.NombreDeColonnes; j++)
+                for (int j = 0; j < p_matrix.NombreDeLignes; j++)
                 {
-                    m_transpose.m_donnees[j,i] = p_matrix.m_donnees[i,j];
+                    m_transpose.m_donnees[i,j] = p_matrix.m_donnees[j,i];
                 }
             }
             return m_transpose;
@@ -67,6 +86,14 @@ namespace ClassLib
 
         public static Matrices operator +(Matrices a, Matrices b)
         {
+            if(a == null || b == null)
+            {
+                throw new MatriceNullException("Les matrices en parametre ne peuvent pas etre null");
+            }
+            if(a.NombreDeColonnes != b.NombreDeColonnes || a.NombreDeLignes != b.NombreDeLignes)
+            {
+                throw new MatriceDimensionIncompatibleException("Les Matrices doivent etre de meme dimension");
+            }
             Matrices resultat = new Matrices(a.NombreDeLignes, a.NombreDeColonnes);
 
             for (int i = 0; i < a.NombreDeLignes; i++)
@@ -82,6 +109,15 @@ namespace ClassLib
 
         public static Matrices operator -(Matrices a, Matrices b)
         {
+            if(a == null || b == null)
+            {
+                throw new MatriceNullException("Les matrices en parametre ne peuvent pas etre null");
+            }
+            if(a.NombreDeColonnes != b.NombreDeColonnes || a.NombreDeLignes != b.NombreDeLignes)
+            {
+                throw new MatriceDimensionIncompatibleException("Les Matrices doivent etre de meme dimension");
+            }
+            
             Matrices resultat = new Matrices(a.NombreDeLignes, a.NombreDeColonnes);
 
             for (int i = 0; i < a.NombreDeLignes; i++)
@@ -97,7 +133,16 @@ namespace ClassLib
 
         public static Matrices operator *(Matrices a, Matrices b)
         {
-            Matrices resultat = new Matrices(a.NombreDeLignes, a.NombreDeColonnes);
+            if(a.NombreDeColonnes < b.NombreDeLignes)
+            {
+                throw new MatriceDimensionIncompatibleException("Les Matrices doivent etre de meme dimension");
+            }
+            if(a is null || b is null)
+            {
+                throw new MatriceNullException("Les matrices en parametre ne peuvent pas etre null");
+            }
+
+            Matrices resultat = new Matrices(a.NombreDeLignes, b.NombreDeColonnes);
 
             for (int i = 0; i < a.NombreDeLignes; i++)
             {
@@ -116,6 +161,11 @@ namespace ClassLib
 
         public static Matrices operator *(Matrices a, int b)
         {
+            if(a is null)
+            {
+                throw new MatriceNullException("La matrice ne peut pas etre null");
+            }
+            
             Matrices resultat = new Matrices(a.NombreDeLignes, a.NombreDeColonnes);
 
             for (int i = 0; i < a.NombreDeLignes; i++)
