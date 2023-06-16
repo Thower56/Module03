@@ -55,5 +55,25 @@ internal class Program
        
     }
 
+
+    static void VoitureDemo()
+    {
+        Voiture voiture;
+        while(true)
+        {
+            Console.Clear();
+        }
+
+        string menu= @$"
+        1. Creer une nouvelle voiture
+        2. Demarrer la voiture
+        3. Arreter la voiture
+        4. Accelerer
+        5. Freiner
+        6. Afficher l'etat
+        7. Quitter
+        Choix: ";
+    }
+
     
 }

@@ -9,7 +9,7 @@ namespace ClassLib
     {
         public double[,] m_donnees {get; private set; }
 
-        public int NombreDeLignes { get {return m_donnees.GetLength(0);} }
+        public int NombreDeLignes { get {return m_donnees.GetLength(0);}}
         public int NombreDeColonnes { get {return m_donnees.GetLength(1);} }
 
         public Matrices(int p_ligne, int p_colonnes)

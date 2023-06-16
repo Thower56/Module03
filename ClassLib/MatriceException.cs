@@ -9,15 +9,6 @@ namespace ClassLib
         public MatriceDimensionIncompatibleException(string message, Exception innerException): base(message, innerException){;}
     }
 
-    public class MatriceNullException : NullReferenceException
-    {
-        public MatriceNullException(){;}
-
-        public MatriceNullException(string message):base(message){;}
-
-        public MatriceNullException(string message, Exception innerException): base(message, innerException){;}
-    }
-
     public class MatriceIdentiteArgumentException : ArgumentException
     {
         public MatriceIdentiteArgumentException(){;}
